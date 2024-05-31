@@ -19,8 +19,12 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     const userInfoString = JSON.stringify(userInfo);
     localStorage.setItem('userInfo', userInfoString);
 
-    const qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: window.location.href.replace('index.html', 'display.html') + '?data=' + encodeURIComponent(userInfoString),
+    // Create the QR code with the encoded URL
+    const encodedUserInfo = encodeURIComponent(userInfoString);
+    const displayUrl = `${window.location.href.replace('index.html', 'display.html')}?data=${encodedUserInfo}`;
+
+    new QRCode(document.getElementById("qrcode"), {
+        text: displayUrl,
         width: 128,
         height: 128
     });
